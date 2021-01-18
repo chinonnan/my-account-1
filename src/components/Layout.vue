@@ -1,13 +1,16 @@
 <template>
-  <Layout>
-    <p>Money.vue</p>
-  </Layout>
+  <div class="nav-wrapper">
+    <div class="content">
+      <slot/>
+    </div>
+    <Nav/>
+  </div>
 </template>
 
-<script lang="ts">
 
+<script lang="ts">
   export default {
-    name: 'Money',
+    name: 'Layout'
   };
 </script>
 
@@ -18,11 +21,9 @@
     flex-direction: column;
     height: 100vh;
   }
-
-  .content {
+  .content{
     border: 1px solid blue;
     overflow: auto;
     flex-grow: 1;
   }
-
 </style>
