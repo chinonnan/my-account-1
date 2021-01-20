@@ -14,10 +14,6 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-
-  // 1.自动提示更智能
-// 2.不能随便写.tostring()
-//   3.编译报错,无法变成JS
   @Component
   export default class Types extends Vue {
     type = '-'; //'-'表示支出，‘+’表示收入
