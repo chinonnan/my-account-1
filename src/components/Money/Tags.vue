@@ -27,9 +27,11 @@
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'Tags'
-  };
+  import Vue from 'vue';
+
+  export default class Notes extends Vue{
+
+  }
 </script>
 
 <style lang="scss" scoped>
