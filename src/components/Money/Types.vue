@@ -11,27 +11,21 @@
   </div>
 </template>
 
-<script>
-  export default {
-    name: 'Types',
-    props:['xxx'],
-    data() {
-      return {
-        type: "-" //'-'表示支出，‘+’表示收入
-      }
-    },
-    mounted(){
-      console.log(this.xxx)
-    },
+<script lang="ts">
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
 
-    methods: {
-      selectType(type) {
-        // type 只能是'-'和'+'中的一个
-        if (type !== '-' && type !== '+') {
-          throw new Error('type is unknown')
-        }
-        this.type = type
+  // 1.自动提示更智能
+// 2.不能随便写.tostring()
+//   3.编译报错,无法变成JS
+  @Component
+  export default class Types extends Vue {
+    type = '-'; //'-'表示支出，‘+’表示收入
+    selectType(type: string) {
+      if (type !== '-' && type !== '+') {
+        throw new Error('type is unknown');
       }
+      this.type = type;
     }
   }
 </script>
