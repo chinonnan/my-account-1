@@ -20,7 +20,7 @@
 
   @Component
   export default class Tags extends Vue {
-    @Prop() dataSource: string[] | undefined;
+    @Prop() readonly  dataSource: string[] | undefined;
     selectedTags: string[] = [];
 
     toggle(tag: string) {
@@ -38,7 +38,8 @@
       if (name === '') {
         window.alert('标签名不能为空');
       } else if (this.dataSource) {
-        this.$emit('update:dataSource', [...this.dataSource, name]);
+        this.$emit('update:dataSource',
+          [...this.dataSource, name]);
       }
 
     }
