@@ -14,6 +14,7 @@
     color: #333;
     line-height: 1.5;
     font-size: 16px;
+    background-color: #f5f5f5;
   }
 
 
