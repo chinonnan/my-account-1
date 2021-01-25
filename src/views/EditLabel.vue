@@ -22,7 +22,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import {tagListModel} from '@/models/tagsListModel';
+  import {tagListModel} from '@/models/tagListModel';
   import FormItem from '@/components/Money/FormItem.vue';
   import Button from '@/components/Button.vue';
 

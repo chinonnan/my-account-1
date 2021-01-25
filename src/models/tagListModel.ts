@@ -6,7 +6,7 @@ type Tag = {
   id: string;
   name: string;
 }
-type TagsListModel =
+type TagListModel =
   {
     data: Tag[];
     fetch: () => Tag[];
@@ -15,7 +15,7 @@ type TagsListModel =
     save: () => void;
     remove: (id: string) => boolean;
   }
-const tagListModel: TagsListModel = {
+const tagListModel: TagListModel = {
   data: [],
   fetch() {
     this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
