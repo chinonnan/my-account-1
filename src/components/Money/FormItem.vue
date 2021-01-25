@@ -1,11 +1,9 @@
 <template>
   <div>
-    <label class="notes">
-      {{value}}
-      <span class="name">备注</span>
+    <label class="formItem">
+      <span class="name">{{this.fieldName}}</span>
       <input type="text"
              v-model="value"
-             @input="$emit('update:value',$event.target.value)"
              :placeholder="this.placeholder">
     </label>
   </div>
@@ -30,9 +28,8 @@
 </script>
 
 <style lang="scss" scoped>
-  .notes {
+  .formItem {
     font-size: 14px;
-    background: #f5f5f5;
     display: flex;
     align-items: center;
     padding-left: 16px;
@@ -42,7 +39,7 @@
     }
 
     input {
-      height: 64px;
+      height: 40px;
       flex-grow: 1;
       background: transparent;
       border: none;
