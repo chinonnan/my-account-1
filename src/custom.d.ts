@@ -8,7 +8,7 @@ type RecordItem = {
 
 type Tag = {
   id: string;
-name: string;
+  name: string;
 }
 type TagListModel =
   {
@@ -20,8 +20,12 @@ type TagListModel =
     remove: (id: string) => boolean;
   }
 
-interface  Window {
+interface Window {
   tagList: Tag[];
   createTag: (name: string) => void;
+  findTag: (id: string) => Tag | undefined;
+  removeTag: (id: string) => boolean;
+  updateTag: TagListModel['update'];
 }
+
 
