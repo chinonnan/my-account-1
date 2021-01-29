@@ -2,9 +2,20 @@
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
-    type:{{type}}
-    <br/>
-    interval:{{interval}}
+
+    <ol>
+      <li v-for="(group,index) in result" :key="index">
+        <h3 class="title">{{group.title}}</h3>
+        <ol>
+          <li v-for="item in group.items" :key="item.id" class="record">
+            <span>{{tagString(item.tags)}}</span>
+            <span class="notes">{{item.notes}}</span>
+            <span>￥{{item.amount}}</span>
+          </li>
+        </ol>
+      </li>
+    </ol>
+
   </Layout>
 </template>
 
@@ -13,32 +24,87 @@
   import {Component} from 'vue-property-decorator';
   import Tabs from '@/components/Tabs.vue';
   import recordTypeList from '@/constants/recordTypeList';
-  import intervaList from '@/constants/intervaList';
+  import intervalList from '@/constants/intervalList';
 
   @Component({
-    components: {Tabs,},
+    components: {Tabs},
   })
   export default class Statistics extends Vue {
+    tagString(tags: Tag[]) {
+      return tags.length === 0 ? '无' : tags.join(',');
+    }
+
+    get recordList() {
+      return (this.$store.state as RootState).recordList;
+    }
+
+    get result() {
+      const {recordList} = this;
+      type HashTableValue = { title: string; items: RecordList[] }
+      const hashTable: { [key: string]: HashTableValue } = {};
+      for (let i = 0; i < recordList.length; i++) {
+        const [date] = recordList[i].createdAt!.split('T');
+        console.log(date);
+        hashTable[date] = hashTable[date] || {title: date, items: []};
+        hashTable[date].items.push(recordList[i]);
+      }
+      console.log(hashTable);
+      return hashTable;
+    }
+
+    beforeCreate() {
+      this.$store.commit('fetchRecords');
+    }
+
     type = '-';
     interval = 'day';
-    intervalList = intervaList;
+    intervalList = intervalList;
     recordTypeList = recordTypeList;
   }
 </script>
 
 <style scoped lang="scss">
-  ::v-deep .type-tabs-item {
-    background: white;
+  ::v-deep {
+    .type-tabs-item {
+      background: white;
 
-    &.selected {
-      background: #c4c4c4;
+      &.selected {
+        background: #c4c4c4;
 
-      &::after {
-        display: none;
+        &::after {
+          display: none;
+        }
       }
     }
+
+    .interval-tabs-item {
+      height: 48px;
+    }
   }
-  ::v-deep .interval-tabs-item{
-    height: 48px;
+
+  %item {
+    padding: 8px 16px;
+    line-height: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
+
+  .title {
+    padding: 0 16px;
+    @extend %item;
+  }
+
+  .record {
+    background: white;
+    @extend %item;
+  }
+
+  .notes {
+    margin-right: auto;
+    margin-left: 8px;
+    color: #999;
+  }
+
+
 </style>
